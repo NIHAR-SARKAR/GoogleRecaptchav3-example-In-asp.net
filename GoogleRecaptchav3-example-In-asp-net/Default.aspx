@@ -22,33 +22,34 @@
 
         </div>
         <div class="form-group">
-            <asp:Button ID="btnLogin" runat="server" Text="Login" type="submit" class="btn btn-primary btn-block" OnClick="btnLogin_Click"/>
+            <input id="btnLogin"  value="Login" type="button" class="btn btn-primary btn-block"/>
         </div>
          
-    <p class="text-center"><asp:Label ID="Error" runat="server"></asp:Label></p>
+    <p class="text-center"><span id="status" class="font-weight-bold"></span></p>
          
 </div>
     </form>
-    <script src="http://www.google.com/recaptcha/api.js?render=recaptchaSiteKey"></script>
+    <script src="http://www.google.com/recaptcha/api.js?render=ApiPublicKey"></script>
 <script>
  grecaptcha.ready(function() {
- grecaptcha.execute('recaptchaSiteKey', {action: 'homepage'}).then(function(token) {
+ grecaptcha.execute('ApiPublicKey', {action: 'homepage'}).then(function(token) {
 
-            $.ajax({
-                type: "POST",
-                url: "Default.aspx/CaptchaVerify",
-                data: '',
+     $.ajax({
+         type: "POST",
+         url: "Default.aspx/SetToken",
+         data: JSON.stringify({_token:token}),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (response) {
-                    self.videos = JSON.parse(response.d);
+         success: function (response) {   
+                    console.log('Passed the token successfully');
                 },
-                failure: function (response) {
+         failure: function (response) {     
                     alert(response.d);
                 }
             });
           });
      });
 </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
