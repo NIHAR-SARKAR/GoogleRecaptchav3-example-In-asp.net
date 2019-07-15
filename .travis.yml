@@ -1,0 +1,9 @@
+language: csharp
+solution: GoogleRecaptchav3-example-In-asp-net.sln
+install:
+  - nuget restore GoogleRecaptchav3-example-In-asp-net.sln
+script:
+  - msbuild /p:Configuration=Release GoogleRecaptchav3-example-In-asp-net.sln
+ 
+ 
+ 
